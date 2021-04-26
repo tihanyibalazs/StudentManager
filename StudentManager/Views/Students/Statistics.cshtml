@@ -1,0 +1,40 @@
+﻿@model IList<StudentStatisticViewModel>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="contentText">Jelenleg egyetlen egy jegy sincs rögzítve!</div>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-info">
+                <th>Student name</th>
+                <th>Average of marks</th>
+                <th>Number of ones</th>
+                <th>Best mark</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var statistic in Model)
+            {
+                <tr class="table-dark">
+                    <td>@statistic.Name</td>
+                    <td>@statistic.MarksAverage</td>
+                    <td>@statistic.TotalOneMark</td>
+                    <td>@statistic.BestMark</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <ul class="pagination">
+            <li>
+                <a class="page-link" asp-controller="Students" asp-action="Statistics" asp-route-pageNumber="@((int)TempData["PageNumber"]-1)">&laquo;</a>
+            </li>
+            <li>
+                <a class="page-link" asp-controller="Students" asp-action="Statistics" asp-route-pageNumber="@((int)TempData["PageNumber"]+1)">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+}
